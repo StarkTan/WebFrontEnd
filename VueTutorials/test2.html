@@ -1,0 +1,63 @@
+<!--Vue 实例 -->
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue 实例</title>
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+        <button v-on:click="message = 'Hello Test2'">Change it</button>
+    </div>
+
+</body>
+
+<script>
+    var data = { message: 'Hello Vue!' }
+    // 当freeze之后页面的值不再响应变化
+    // Object.freeze(data)
+    var app = new Vue({
+        el: '#app',
+        data: data,
+        beforeCreate:function(){
+            console.log('beforeCreate')
+        },
+        created:function(){
+            console.log('create')
+        },
+        beforeMount:function(){
+            console.log('beforeMount')
+        },
+        mounted:function(){
+            console.log('mounted')
+        },
+        beforeUpdate:function(){
+            console.log('beforeUpdate')
+        },
+        updated:function(){
+            console.log('updated')
+        },
+        beforeDestory:function(){
+            console.log('beforeDestory')
+        }
+    })
+    // 当data中的值变化，页面也会同时响应
+    data.message = 'Hello Test1'
+    // 使用$可以访问实例的官方属性，与自定义属性区分
+    console.log(app.$data == data)
+    console.log(app.$el === document.getElementById('app'))
+    app.$watch('message', function (newValue, oldValue) {
+        // 这个回调将在 app data 中的 message 改变后调用
+        console.log(newValue)
+        console.log(oldValue)
+    })
+
+
+
+
+
+</script>
+
+</html>
