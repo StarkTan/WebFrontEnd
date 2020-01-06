@@ -6,3 +6,4 @@ test4.html Vue 计算属性和侦听器
 test5.html Vue Class与Style绑定
 test6.html Vue 条件渲染
 test7.html Vue 列表渲染
+test8.html Vue 事件处理
