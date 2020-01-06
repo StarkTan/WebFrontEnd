@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue 条件渲染</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-if判断 awesome为true时进行渲染-->
+        <h1 v-if="awesome">Vue is awesome!</h1>
+        <!-- v-else 其他块，必须紧接v-if -->
+        <h1 v-else>Oh no 😢</h1>
+        <!-- template 可以看做是不可见的包装元素,v-if对子节点全部生效-->
+        <template v-if="ok">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+        <!--v-else-if 使用 -->
+        <div v-if="type === 'A'">
+            A
+        </div>
+        <div v-else-if="type === 'B'">
+            B
+        </div>
+        <div v-else-if="type === 'C'">
+            C
+        </div>
+        <div v-else>
+            Not A/B/C
+        </div>
+        <!-- v-if中的元素是可以复用的 -->
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address">
+        </template><br />
+        <button v-on:click="toggleLoginType">Toggle login type</button>
+
+        <!-- v-show 在页面展示中与v-if一样，但是不消除DOM，只修改display的值-->
+        <!-- v-show 不支持template-->
+        <h1 v-show="ok">Hello!</h1>
+    </div>
+
+</body>
+
+<script>
+    var data = {
+        awesome: false,
+        ok: false,
+        type: 'C',
+        loginType: 'username',
+    }
+    var app = new Vue({
+        el: '#app',
+        data: data,
+        methods: {
+            toggleLoginType: function () {
+                if (this.loginType === 'username') {
+                    this.loginType ='email'
+                } else {
+                    this.loginType = 'username'
+                }
+            }
+        }
+    })
+</script>
+
+</html>

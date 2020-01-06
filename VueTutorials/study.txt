@@ -4,3 +4,4 @@ test2.html Vue 实例
 test3.html Vue 模板语法
 test4.html Vue 计算属性和侦听器
 test5.html Vue Class与Style绑定
+test6.html Vue 条件渲染
