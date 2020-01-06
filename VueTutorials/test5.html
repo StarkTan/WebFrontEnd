@@ -1,0 +1,92 @@
+<!--Vue 实例 -->
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue Class与Style绑定</title>
+
+    <script>
+        // 定义一个组件 包含class
+        Vue.component('my-component', {
+            template: '<div class="foo bar"></div>'
+        })
+    </script>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 绑定Class -->
+        <!-- 简单动态绑定class -->
+        <div id=1 v-bind:class="{ active: isActive }"></div>
+        <!-- 绑定多个class-->
+        <div id=2 class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+        <!-- class 与数据对象进行绑定-->
+        <div id=3 v-bind:class="classObject"></div>
+        <!-- class 与计算属性进行绑定-->
+        <div id=4 v-bind:class="classObject1"></div>
+        <!-- class 与数组绑定 -->
+        <div id=5 v-bind:class="[activeClass, errorClass]"></div>
+        <!-- class 使用三元表示式-->
+        <div id=6 v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+        <!-- 使用对象语法-->
+        <div id=7 v-bind:class="[{ active: isActive }, errorClass]"></div>
+        <!-- 使用改组件,添加class-->
+        <my-component id=8 class="baz boo"></my-component>
+        <!-- 使用组件 带数据绑定class-->
+        <my-component id=9 v-bind:class="{ active: isActive }"></my-component>
+
+        <!-- 绑定style-->
+        <!-- 简单绑定style-->
+        <div id=11 v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+        <!-- 使用对象绑定style-->
+        <div id=12 v-bind:style="styleObject"></div>
+        <!-- style数组加载，会对相同属性进行覆盖-->
+        <div v-bind:style="[baseStyles, overridingStyles]"></div>
+        <!-- style 多重值-->
+        <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+    </div>
+
+</body>
+
+<script>
+    var data = {
+        isActive: true, // 是否展示对应的class
+        hasError: false,
+        error: null,
+        activeClass: 'active',
+        errorClass: 'text-danger',
+        classObject: {
+            active: true,
+            'text-danger': false
+        },
+        activeColor: 'red',
+        fontSize: 30,
+        styleObject: {
+            color: 'red',
+            fontSize: '13px'
+        },
+        baseStyles: {
+            color: 'red',
+            fontSize: '13px'
+        },
+        overridingStyles: {
+            fontSize: '12px'
+        }
+    }
+    var app = new Vue({
+        el: '#app',
+        data: data,
+        computed: {
+            classObject1: function () {
+                return {
+                    active: this.isActive && !this.error,
+                    'text-danger': this.error && this.error.type === 'fatal'
+                }
+            }
+        }
+    })
+
+</script>
+
+</html>
