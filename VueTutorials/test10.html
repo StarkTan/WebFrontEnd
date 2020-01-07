@@ -1,0 +1,132 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue 组件基础</title>
+</head>
+
+<body>
+    <div id="components-demo">
+        <!-- 使用自定义的组件
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <br />-->
+        <!-- props 数据绑定的简单使用
+        <blog-post title="My journey with Vue"></blog-post>
+        <blog-post title="Blogging with Vue"></blog-post>
+        <blog-post title="Why Vue is so fun"></blog-post>
+        <br />-->
+        <!-- 使用v-bind为props绑定数据-->
+        <!-- <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title" v-bind:content="post.content"> -->
+        <!-- </blog-post> -->
+        <!--  为props绑定对象-->
+        <!-- <blog-post1 v-for="post in posts" v-bind:key="post.id+3" v-bind:post="post"></blog-post1> -->
+
+    </div>
+    <div id="blog-posts-events-demo">
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <!-- 使用v-on监听组件上的事件-->
+            <blog-post2 v-for="post in posts" v-bind:key="post.id" v-bind:post="post"
+                v-on:enlarge-text="postFontSize += 0.1"></blog-post2>
+        </div>
+        <custom-input v-model="searchText"></custom-input>
+        <alert-box>
+            Something bad happened.
+        </alert-box>
+    </div>
+
+    <!-- 组件会在 `currentTabComponent` 改变时改变 is 的作用-->
+    <component v-bind:is="currentTabComponent"></component>
+
+</body>
+
+<script>
+    // 创建一个组件
+    // data 必须是一个函数，作为独立的数据拷贝
+    Vue.component('button-counter', {
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
+    // 使用 props 为组件绑定数据
+    Vue.component('blog-post', {
+        props: ['title', 'content'],
+        // template 中只能有一个根节点
+        template: '<div class="blog-post"><h3>{{ title }}</h3><div v-html="content"></div></div>'
+    })
+    // 使用 props 为组件绑定数据
+    Vue.component('blog-post1', {
+        props: ['post'],
+        // template 中只能有一个根节点
+        template: '<div class="blog-post"><h3>{{ post.title }}</h3><div v-html="post.content"></div></div>'
+    })
+
+
+
+    Vue.component('blog-post2', {
+        props: ['post'],
+        // 加入v-on 用于触发事件
+        template: `
+                <div class="blog-post">
+                <h3>{{ post.title }}</h3>
+                <button v-on:click="$emit('enlarge-text')">
+                    Enlarge text
+                </button>
+                <div v-html="post.content"></div>
+                </div>
+                `
+    })
+    // 在组件中使用v-model
+    Vue.component('custom-input', {
+        props: ['value'],
+        template: `
+                    <input
+                    v-bind:value="value"
+                    v-on:input="$emit('input', $event.target.value)"
+                    >
+                `
+    })
+    // 定义插槽
+    Vue.component('alert-box', {
+        template: `
+            <div class="demo-alert-box">
+            <strong>Error!</strong>
+            <slot></slot>
+            </div>
+        `
+    })
+
+</script>
+
+
+
+
+<script>
+    var data = {
+        posts: [
+            { id: 1, title: 'My journey with Vue', content: 'Test' },
+            { id: 2, title: 'Blogging with Vue', content: 'Test' },
+            { id: 3, title: 'Why Vue is so fun', content: 'Test' }
+        ],
+        postFontSize: 1,
+        searchText: ''
+
+    }
+    var app = new Vue({
+        el: '#components-demo',
+        data: data,
+
+    })
+    new Vue({
+        el: '#blog-posts-events-demo',
+        data: data
+    })
+
+</script>
+
+</html>
