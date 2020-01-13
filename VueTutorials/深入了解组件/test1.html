@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 全局注册 可以用在任何新创建的 Vue 根实例 (new Vue) 的模板中
+        Vue.component('my-component-global', {
+            // ... 选项 ...
+        })
+        // 局部注册  局部注册的组件在其子组件中不可用
+        var ComponentA = { /* ... */ }
+        var ComponentB = {
+            components: {
+                // 局部注册的组件使用 
+                'component-a': ComponentA
+            },
+            // ...
+        }
+
+
+
+    </script>
+    <title>Vue 注册组件</title>
+</head>
+<div id="app">
+    <!-- 全局注册组件使用 -->
+    <component-a></component-a>
+</div>
+
+<script>
+    new Vue({ el: '#app' })
+</script>
+
+
+</html>

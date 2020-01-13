@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        Vue.component('blog-post', {
+            // 在 JavaScript 中是 camelCase 的
+            props: ['postTitle'],
+            template: '<h3>{{ postTitle }}</h3>'
+        })
+        // 数值验证
+        Vue.component('prop-test', {
+            props: {
+                // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+                likes: Number,
+                // 多个可能的类型
+                propB: [String, Number],
+                // 必填的字符串
+                propC: {
+                    type: String,
+                    required: true
+                },
+                // 带有默认值的数字
+                propD: {
+                    type: Number,
+                    default: 100
+                },
+                // 带有默认值的对象
+                propE: {
+                    type: Object,
+                    // 对象或数组默认值必须从一个工厂函数获取
+                    default: function () {
+                        return { message: 'hello' }
+                    }
+                },
+                // 自定义验证函数
+                propF: {
+                    validator: function (value) {
+                        // 这个值必须匹配下列字符串中的一个
+                        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+                    }
+                }
+            },
+            template: '<p>数字：{{ likes }}</p>'
+        })
+
+
+    </script>
+    <title>Vue Prop使用</title>
+</head>
+<div id="app">
+    <!-- attr 在 HTML 中是 kebab-case 的 -->
+    <!-- 传入静态值-->
+    <blog-post post-title="hello!"></blog-post>
+    <!-- 动态赋予一个变量的值 -->
+    <blog-post v-bind:post-title="post.title"></blog-post>
+    <!-- 动态赋予一个复杂表达式的值 -->
+    <blog-post v-bind:post-title="post.title + ' by ' + post.author.name"></blog-post>
+    <!-- 传入数字 -->
+    <prop-test v-bind:likes="post.likes"></prop-test>
+
+</div>
+
+<script>
+    data = {
+        post: {
+            title: 'test',
+            author: {
+                name: 'stark'
+            },
+            likes: 42
+        }
+    }
+    new Vue({
+        el: '#app',
+        data: data
+    })
+</script>
+
+
+</html>
