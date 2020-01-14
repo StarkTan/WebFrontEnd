@@ -1,2 +1,4 @@
 VueCli创建的文件功能：https://www.cnblogs.com/hongdiandian/p/8311645.html
 Vue 集成ElementUI ： https://blog.csdn.net/qixiang_chen/article/details/90738958
+Vue 集成axios做Ajax请求 ：https://www.runoob.com/vue2/vuejs-ajax-axios.html
+Vue 使用模拟数据 ：https://blog.csdn.net/lduzhenlin/article/details/94430283
