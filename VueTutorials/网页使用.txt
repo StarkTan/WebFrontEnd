@@ -1,0 +1,4 @@
+nodejs安装：https://www.cnblogs.com/xiaoxiaodevlog/p/10542745.html
+vue-cli2 安装及项目运行：https://www.jianshu.com/p/b697c036fec4
+vue-element-admin 例子：https://github.com/PanJiaChen/vue-element-admin
+vue-element-template 例子: https://github.com/PanJiaChen/vue-admin-template
