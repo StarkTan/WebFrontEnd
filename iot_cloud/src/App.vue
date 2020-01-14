@@ -1,3 +1,4 @@
+<!-- 说明：app.vue是项目的主组件，所有页面都是在app.vue下切换的 -->
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
