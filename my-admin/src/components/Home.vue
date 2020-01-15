@@ -5,8 +5,8 @@
         <el-header>DEVICES</el-header>
         <el-main>
           <el-row :gutter="20">
-            <el-col v-for ='device in devices' :key='device.id' :span="6">
-              <device :device = device></device>
+            <el-col v-for="device in devices" :key="device.id" :span="6">
+              <device :device="device"></device>
             </el-col>
           </el-row>
         </el-main>
@@ -52,17 +52,27 @@
 </style>
 
 <script>
-import device from './Device.vue'
-
+import device from "./Device.vue";
+import axios from "axios";
 export default {
-  components: {device},
+  components: { device },
   data() {
-    return {devices: []}
+    return { devices: [] };
   },
   created() {
-    const res = '[{"id":"173D001B","name":"BM-33_EVB-01","config":"{\\"switch_led1\\": \\"off\\"}","version":"1.6","confirm":true}]'
-    const devices = JSON.parse(res)
-    this.devices = devices
+    axios
+      .get("http://localhost:8000/devices/?format=json")
+      .then(res => {
+        this.devices = res.data
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    // const res =
+    //   '[{"id":"173D001B","name":"BM-33_EVB-01","config":"{\\"switch_led1\\": \\"off\\"}","version":"1.6","confirm":true}]';
+    // const devices = JSON.parse(res);
+    // this.devices = devices;
   }
 };
 </script>

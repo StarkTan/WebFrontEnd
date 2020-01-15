@@ -10,6 +10,7 @@
 
 <script>
 import contrl from "./Controller.vue";
+import axios from "axios";
 export default {
   components: { contrl },
   data() {
@@ -23,7 +24,15 @@ export default {
   },
   methods: {
     change: function(name, value) {
-      this.controllers[name] = value
+      this.controllers[name] = value;
+      axios
+        .put("http://localhost:8000/devices/" + this.device.id + '/', {"config": JSON.stringify(this.controllers)})
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   props: ["device"]
