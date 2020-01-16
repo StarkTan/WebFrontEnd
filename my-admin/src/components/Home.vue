@@ -5,7 +5,7 @@
         <el-header>DEVICES</el-header>
         <el-main>
           <el-row :gutter="20">
-            <el-col v-for="device in devices" :key="device.id" :span="6">
+            <el-col v-for="device in devices" :key="device.id" :span="5">
               <device :device="device"></device>
             </el-col>
           </el-row>
